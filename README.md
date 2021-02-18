@@ -1,2 +1,1 @@
-"# Netlify-Functions" 
-"# Netlify-Functions" 
+Netlify-Functions
