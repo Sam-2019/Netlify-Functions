@@ -15,6 +15,7 @@
     "netlify-lambda": "^2.0.3"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.11.17"
   }
 }
