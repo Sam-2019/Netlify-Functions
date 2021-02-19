@@ -12,3 +12,5 @@
 /built-lambda
 
 /.netlify
+
+.env
