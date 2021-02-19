@@ -1,22 +1,24 @@
 const mongoose = require("mongoose");
 
-function connectToDb() {}
+function connectToDatabase() {
+  console.log("=> connect to database");
+
+  mongoose.connect("mongodb://localhost/test", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
 
 exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   let result;
   try {
-    mongoose.connect("mongodb://127.0.0.1:27017/noteApp", {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: true,
-      useUnifiedTopology: true,
-    });
-
-    var connection = mongoose.connection;
-    connection.once("open", function () {
-      console.log("dB connection established successfully");
+    await connectToDatabase();
+    const result = mongoose.connection;
+    result.on("error", console.error.bind(console, "connection error:"));
+    result.once("open", function () {
+      console.log("=> connect to database");
     });
   } catch (error) {
     console.log("error", error);
