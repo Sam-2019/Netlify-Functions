@@ -1,25 +1,21 @@
 const mongoose = require("mongoose");
 
-function connectToDatabase() {
-  console.log("=> connect to database");
-
-  mongoose.connect("mongodb://localhost/test", {
+function connectionFactory() {
+  const conn = mongoose.connect("mongodb://127.0.0.1:27017/noteApp", {
     useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
     useUnifiedTopology: true,
   });
+
+  return conn;
 }
 
 exports.handler = async (event, context) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  let result;
+  let result = "Hello";
   try {
-    await connectToDatabase();
-    const result = mongoose.connection;
-    result.on("error", console.error.bind(console, "connection error:"));
-    result.once("open", function () {
-      console.log("=> connect to database");
-    });
+    const db = await connectionFactory();
+    console.log(db)
   } catch (error) {
     console.log("error", error);
     return {
